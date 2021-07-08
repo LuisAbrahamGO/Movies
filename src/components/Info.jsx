@@ -1,4 +1,5 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect, useContext } from "react";
+import languagesContext from "../context/languages/laguagesContext";
 import axios from "axios";
 
 const Info = (props) => {
@@ -7,10 +8,20 @@ const Info = (props) => {
   let [image, setImage] = useState();
   let [movieGenres, setMovieGenres] = useState([]);
 
+  const context = useContext(languagesContext);
+  const { changeLanguage, language } = context;
+
   useEffect(() => {
+    let url = "";
+    if (language) {
+      url =  `https://api.themoviedb.org/3/movie/${movie}?api_key=b3a99e49d4ea019e4e8f3a928062f42b&language=en-US`;
+    } else {
+      url =  `https://api.themoviedb.org/3/movie/${movie}?api_key=b3a99e49d4ea019e4e8f3a928062f42b&language=es-ES`;
+    }
+
     axios
       .get(
-        `https://api.themoviedb.org/3/movie/${movie}?api_key=b3a99e49d4ea019e4e8f3a928062f42b&language=en-US`
+        url
       )
       .then((res) => {
         setState((state = res.data));
@@ -22,9 +33,15 @@ const Info = (props) => {
   useEffect(() => {
     let genres = [];
     let aux = [];
+    let url = "";
+    if (language) {
+      url =  "https://api.themoviedb.org/3/genre/movie/list?api_key=b3a99e49d4ea019e4e8f3a928062f42b&language=en-US";
+    } else {
+      url =  "https://api.themoviedb.org/3/genre/movie/list?api_key=b3a99e49d4ea019e4e8f3a928062f42b&language=es-ES";
+    }
     axios
       .get(
-        "https://api.themoviedb.org/3/genre/movie/list?api_key=b3a99e49d4ea019e4e8f3a928062f42b&language=en-US"
+        url
       )
       .then((res) => {
         genres = res.data.genres;
@@ -61,7 +78,7 @@ const Info = (props) => {
             <p>
               <i className="far fa-star"></i> {state.vote_average}
             </p>
-            <p>Release: {state.release_date}</p>
+            <p>{language? "Release" : "Lanzamiento"}: {state.release_date}</p>
           </div>
         </div>
       ) : (

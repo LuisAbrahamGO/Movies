@@ -9,8 +9,21 @@
   z-index: 2;
 }
 
+.footer{
+  display: flex;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
 .about{
-  text-decoration: white;
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  text-decoration: none;
   color: white;
 }
 
@@ -23,17 +36,24 @@
 
 }
 
-.dropdown{
+.tools{
   display: flex;
   flex-direction: column;
+  align-items: center;
   left: 80%;
+  background: black;
+  color: white;
   width: fit-content;
-  margin-top: 60px;
+  margin-top: 57px;
+  margin-left: 1px;
+  border-radius: 5px;
+  padding: 5px;
 }
 
-.dropdown button{
+.tools button{
   border: none;
   border-radius: 50%;
+  margin: 2px;
 }
 
 
@@ -78,7 +98,7 @@
 }
 
 .cont a {
-  border-radius: 50px;
+  border-radius: 10px;
 }
 
 .info-container {
