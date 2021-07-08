@@ -6,7 +6,7 @@ const Footer = () => {
             ☺ 2021: Luis Abraham Galindo O.
             <a href="https://github.com/LuisAbrahamGO/Movies">
               <h2>
-                <i class="fab fa-github"></i>
+                <i className="fab fa-github"></i>
               </h2>
             </a>
           </div>
