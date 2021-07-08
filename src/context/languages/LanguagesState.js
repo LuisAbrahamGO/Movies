@@ -1,4 +1,4 @@
-import React, {useReducer, useEffect} from 'react';
+import React, {useReducer} from 'react';
 import languagesContext from './laguagesContext';
 import languagesReducer from './laguagesReducer';
 import {CHANGE} from '../../types/types';
