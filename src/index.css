@@ -1,5 +1,7 @@
 .App {
   background: seashell;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -9,7 +11,38 @@
   z-index: 2;
 }
 
-.footer{
+.tools {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: white;
+  width: 50%;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.tools button {
+  border: none;
+  border-radius: 50%;
+  margin: 2px;
+}
+
+.sort-btns {
+  display: flex;
+  align-items: center;
+  margin: 4px;
+}
+
+.sort-btns h6 {
+  margin: 2px;
+}
+
+.footer-container {
+  width: 100%;
+  z-index: 2;
+}
+
+.footer {
   display: flex;
   padding: 0;
   align-items: center;
@@ -17,7 +50,7 @@
   width: 100%;
 }
 
-.about{
+.about {
   display: flex;
   padding: 1rem;
   flex-direction: column;
@@ -27,38 +60,12 @@
   color: white;
 }
 
-.box-container{
+.box-container {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  margin: 30px;
   justify-content: space-between;
-  position: relative;
   height: fit-content;
-
 }
-
-.tools{
-  position: fixed;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  left: 0%;
-  background: black;
-  color: white;
-  width: fit-content;
-  margin-top: 57px;
-  margin-left: 1px;
-  border-radius: 5px;
-  padding: 5px;
-}
-
-.tools button{
-  border: none;
-  border-radius: 50%;
-  margin: 2px;
-}
-
 
 .container {
   display: grid;
@@ -82,15 +89,23 @@
   box-shadow: 0 0 2px black;
 }
 
-.card-img-top{
-  width:  288px;
-  height: 375px;
+.card-img-top {
+  width: 288px;
+  height: 100%;
 }
 
-
-.card-body {
-  background: linear-gradient(hsl(0 0% 0% / 0), hsl(0 0% 0% / 0.5));
-  
+.title {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 10px;
+  bottom: 0;
+  width: 100%;
+  border-radius: 5%;
+  height: fit-content;
+  margin: 0;
+  background: linear-gradient(45deg, black, transparent);
 }
 
 .cont {
@@ -104,11 +119,10 @@
 }
 
 .info-container {
-  position: relative;
   display: flex;
   flex-direction: column;
   margin-top: 4%;
-  min-width: 100vw;
+  width: 100vw;
   padding: 2rem;
   display: flex;
   justify-content: flex-start;
@@ -121,7 +135,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
+  margin-bottom: 1rem;
 }
 
 .info-image {
@@ -132,11 +146,8 @@
 }
 
 .info-content {
-  max-width: 50%;
-  min-height: 50%;
-  min-width: 25vw;
-  margin-left: 2rem;
-  align-self: initial;
+  padding: 10px;
+  width: 55%;
 }
 
 .info-content p:nth-child(2) {
@@ -145,4 +156,41 @@
 }
 .info-content p:nth-child(3) {
   font-weight: bold;
+}
+
+.video-box {
+  width: 50%;
+  height: 55vh;
+}
+
+@media (max-width: 700px) {
+  .info-box {
+    display: grid;
+    margin: 4rem auto;
+    grid-gap: 20px;
+    min-width: 50%;
+  }
+
+  .info-content {
+    width: 100%;
+  }
+
+  .video-box {
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+  }
+  .react-player {
+    padding-top: 56.25%;
+    position: relative;
+  }
+  .react-player > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .lan-btn {
+    display: flex;
+  }
 }

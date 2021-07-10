@@ -19,28 +19,22 @@ const Card = ({ movie }) => {
     let key = movie.poster_path;
     let localImg = localStorage.getItem(key);
     img.current.src = localImg ? localImg : defaultImg;
-  }, [img.current]);
-
+  }, []);
 
   return (
     <Fragment>
-      <div className="card">
-        <img
-          ref={img}
-          onLoad={handleOnLoad}
-          src=""
-          className="card-img-top"
-          alt="unreachable"
-        />
-        <div className="card-body">
-          <h5 className="card-title">{movie.title}</h5>
-          <div className="cont">
-            <Link to={`/movie_info/${movie.id}`} className="btn btn-primary ">
-              {language ? "See more" : "Ver mas"}
-            </Link>
-          </div>
+      <Link to={`/movie_info/${movie.id}`}>
+        <div className="card">
+          <img
+            ref={img}
+            onLoad={handleOnLoad}
+            src=""
+            className="card-img-top"
+            alt="unreachable"
+          />
+          
         </div>
-      </div>
+      </Link>
     </Fragment>
   );
 };

@@ -28,7 +28,7 @@ const Info = (props) => {
         setImage(`https://image.tmdb.org/t/p/w342/${state.poster_path}`);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [language]);
 
   useEffect(() => {
     let genres = [];
@@ -55,8 +55,6 @@ const Info = (props) => {
         setMovieGenres((movieGenres = aux));
       })
       .catch((error) => console.log(error));
-
-    
   }, [state]);
 
   useEffect(() => {
@@ -67,10 +65,10 @@ const Info = (props) => {
       .then((res) => {
         let results = res.data.results;
         let key = results[1] !== undefined ? results[1].key : results[0].key;
-        setVideo(video = `https://www.youtube.com/watch?v=${key}`);
+        setVideo((video = `https://www.youtube.com/watch?v=${key}`));
       })
       .catch((error) => console.log(error));
-  })
+  });
 
   return (
     <div className="info-container">
@@ -81,7 +79,7 @@ const Info = (props) => {
               <img src={image} alt="..." />
             </div>
             <div className="info-content">
-              <h2>Title: {state.title}</h2>
+              <h2>{language ? "Title:": "Titúlo:"} {state.title}</h2>
               <h5>
                 {movieGenres.map((genre, index) => (
                   <span key={index}> {genre}</span>
@@ -96,9 +94,14 @@ const Info = (props) => {
               </p>
             </div>
           </div>
+          <h2>Trailer</h2>
           <div className="video-box">
-            <h2>Trailer</h2>
-            <YouTubePlayer url={video}/>
+            <YouTubePlayer
+              url={video}
+              className="react-player"
+              width="100%"
+              height="100%"
+            />
           </div>
         </Fragment>
       ) : (

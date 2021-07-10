@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div>
+    <div className="footer-container">
       <nav className="navbar navbar-dark bg-dark text-center footer">
           <div className="about">
             ☺ 2021: Luis Abraham Galindo O.

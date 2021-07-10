@@ -1,34 +1,33 @@
 import { useState, useEffect, useContext } from "react";
 import languagesContext from "../context/languages/laguagesContext";
+import sortContext from "../context/sort/sortContext";
 import Card from "./Card";
 import axios from "axios";
 
 const Box = () => {
   let [state, setState] = useState([]);
-  let [order, setOrder] = useState();
 
-  const context = useContext(languagesContext);
-  const { changeLanguage, language } = context;
+  const contextLan = useContext(languagesContext);
+  const { language } = contextLan;
 
-  const handleOnClickHig = (e) => {
-    setState(
-      (state = state.sort((a, b) => {
-        return b.popularity - a.popularity;
-      }))
-    );
-    setOrder("low");
-  };
+  const contextSort = useContext(sortContext);
+  const { sort } = contextSort;
 
-  const handleOnClickLow = (e) => {
-    setState(
-      (state = state.sort((a, b) => {
-        return a.popularity - b.popularity;
-      }))
-    );
-    setOrder("hig");
-  };
-
-  useEffect(() => {}, [order]);
+  useEffect(() => {
+    if (sort === "low") {
+      setState(
+        (state = state.sort((a, b) => {
+          return b.popularity - a.popularity;
+        }))
+      );
+    } else {
+      setState(
+        (state = state.sort((a, b) => {
+          return a.popularity - b.popularity;
+        }))
+      );
+    }
+  }, [sort, state]);
 
   useEffect(() => {
     let url = "";
@@ -58,33 +57,8 @@ const Box = () => {
     });
   }, [state]);
 
-  const handleOnclickLan = (e) => {
-    changeLanguage();
-  };
-
   return (
     <div className="box-container">
-      <div className="tools">
-        <h6>Sort by popularity</h6>
-        <div className="buttons">
-          <button onClick={handleOnClickHig}>
-            <i className="fas fa-arrow-circle-up"></i>
-          </button>
-          <button onClick={handleOnClickLow}>
-            <i className="fas fa-arrow-circle-down"></i>
-          </button>
-        </div>
-        <div className="lan-btn">
-          <span>Es</span>
-          <button onClick={handleOnclickLan}>
-            <i
-              className={language ? "fas fa-toggle-on" : "fas fa-toggle-off"}
-            ></i>
-          </button>
-          <span>En</span>
-        </div>
-        <div className="language"></div>
-      </div>
       <div className="container">
         {state.map((movie, index) => (
           <Card key={index} movie={movie}></Card>
