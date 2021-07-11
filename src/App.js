@@ -7,10 +7,12 @@ import Login from "./components/Login";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LanguagesState from "./context/languages/LanguagesState";
 import SortState from "./context/sort/SortState";
+import UserState from "./context/user/UserState";
 
 function App() {
   return (
-    <SortState>
+    <UserState>
+      <SortState>
       <LanguagesState>
         <div className="App">
           <Router>
@@ -26,6 +28,7 @@ function App() {
         </div>
       </LanguagesState>
     </SortState>
+    </UserState>
   );
 }
 

@@ -79,7 +79,9 @@ const Info = (props) => {
               <img src={image} alt="..." />
             </div>
             <div className="info-content">
-              <h2>{language ? "Title:": "Titúlo:"} {state.title}</h2>
+              <h2>
+                {language ? "Title:" : "Titúlo:"} {state.title}
+              </h2>
               <h5>
                 {movieGenres.map((genre, index) => (
                   <span key={index}> {genre}</span>
@@ -105,7 +107,10 @@ const Info = (props) => {
           </div>
         </Fragment>
       ) : (
-        <h1 className="loading">Loading...</h1>
+        <div className="loading">
+          <i className="fas fa-ticket-alt fa-10x"></i>
+          <h1 className="loading">{language ? "Loading..." : "Cargando..."}</h1>
+        </div>
       )}
     </div>
   );

@@ -1,9 +1,13 @@
+import firebase from "../config/Firebase";
+import "firebase/auth";
 import { useState } from "react";
 
 const Register = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [conf, setConf] = useState();
+  const [error, setError] = useState();
+
 
   const handleOnchangeEmail = (e) => {
     setEmail(e.target.value);
@@ -24,14 +28,25 @@ const Register = () => {
     if (emailRegex.test(email)) {
       if (password.length === conf.length) {
         if (password === conf) {
-          alert("Registrado con exito");
+          firebase
+            .auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then((res) => alert("successful sign up"))
+            .catch((error) => setError(error.message));
+        } else {
+          setError("the passwords doesn't match");
         }
       } else {
-        console.log(password);
+        setError("the passwords doesn't match");
       }
     } else {
-      console.log(email);
+      setError("Check your email, seems like you ate some letters");
     }
+
+    setTimeout(() => {
+      setError(null);
+    }, 3000);
+
   };
 
   return (
@@ -43,41 +58,42 @@ const Register = () => {
           <i className="fas fa-ticket-alt fa-10x"></i>
         </div>
         <form onSubmit={handleOnSubmit}>
-          <div class="form-group">
-            <label for="emailId">Email address</label>
+          <div className="form-group">
+            <label htmlFor="emailId">Email address</label>
             <input
               type="email"
-              class="form-control"
+              className="form-control"
               id="emailId"
               aria-describedby="emailHelp"
               placeholder="Enter email"
               onChange={handleOnchangeEmail}
             />
-            <small id="emailHelp" class="form-text text-muted">
+            <small id="emailHelp" className="form-text text-muted">
               We'll never share your email with anyone else.
             </small>
           </div>
-          <div class="form-group">
-            <label for="passId">Password</label>
+          <div className="form-group">
+            <label htmlFor="passId">Password</label>
             <input
               type="password"
               id="passId"
-              class="form-control"
+              className="form-control"
               placeholder="Password"
               onChange={handleOnchangePass}
             />
           </div>
-          <div class="form-group">
-            <label for="passConfId">Confirm Password</label>
+          <div className="form-group">
+            <label htmlFor="passConfId">Confirm Password</label>
             <input
               type="password"
               id="passConfId"
-              class="form-control"
+              className="form-control"
               placeholder="Confirm Password"
               onChange={handleOnchangeConf}
             />
           </div>
-          <button type="submit" class="btn btn-success">
+          {error && <div className="error">{error}</div>}
+          <button type="submit" className="btn btn-success">
             Submit
           </button>
         </form>

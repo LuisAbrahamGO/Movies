@@ -1,5 +1,4 @@
 .App {
-  background: seashell;
   display: flex;
   flex-direction: column;
 }
@@ -8,25 +7,38 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
 }
 
-.right-cont{
+.loading {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh;
+}
+
+.right-cont {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   width: 50%;
 }
 
-.right-cont button{
+.right-cont button {
   border: green solid;
   background: transparent;
   color: green;
   margin: 1px;
 }
 
-.log-options button{
+.log-options button {
   width: 100%;
+}
+
+.log-options p {
+  margin: 0;
+  width: 100%;
+  color: white;
 }
 
 .tools {
@@ -50,7 +62,7 @@
   margin: 4px;
 }
 
-.sort-btns p{
+.sort-btns p {
   margin: 0;
 }
 
@@ -59,14 +71,19 @@
   z-index: 2;
 }
 
-.form-container{
+.form-container {
   height: 100vh;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  background: seashell;
 }
 
-.container-r{
+.form-container button {
+  margin: 6px;
+}
+
+.container-r {
   position: absolute;
   display: flex;
   align-items: center;
@@ -74,11 +91,11 @@
   height: 70%;
 }
 
-.container-r form{
+.container-r form {
   width: 75%;
 }
 
-.icon{
+.icon {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -88,9 +105,15 @@
   font-weight: 900;
 }
 
-.icon i{
+.icon i {
   margin-top: 1rem;
   transform: rotate(90deg);
+}
+
+.error {
+  color: red;
+  margin: 2px;
+  font-weight: bold;
 }
 
 .footer {
@@ -113,9 +136,10 @@
 
 .box-container {
   position: relative;
-  margin: 30px;
+  margin: 30px 0 0 0;
   justify-content: space-between;
   height: fit-content;
+  background: seashell;
 }
 
 .container {
@@ -169,6 +193,10 @@
   border-radius: 10px;
 }
 
+.bars {
+  display: none;
+}
+
 .info-container {
   display: flex;
   flex-direction: column;
@@ -215,6 +243,50 @@
 }
 
 @media (max-width: 700px) {
+  .container-fluid {
+    flex-direction: column;
+  }
+
+  .right-cont {
+    display: none;
+    flex-direction: column;
+  }
+
+  .bars {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    color: white;
+  }
+
+  .bars-btn {
+    background: transparent;
+    color: green;
+    border: none;
+  }
+
+  .points-hide {
+    display: none;
+  }
+
+  .points {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .points button {
+    border: green solid;
+    background: transparent;
+    color: green;
+    margin: 1px;
+  }
+
+  .tools {
+    display: flex;
+    flex-direction: column;
+  }
+
   .info-box {
     display: grid;
     margin: 5rem auto;
@@ -245,21 +317,26 @@
     display: flex;
   }
 
-  .sort-btns p{
+  .sort-btns p {
     font-size: x-small;
   }
 
-  .log-options button{
+  .log-options button {
     font-size: x-small;
   }
 
-  .container-r{
+  .container-r {
     display: grid;
   }
 
-  .icon i{
+  .icon i {
     margin-top: 0;
     margin-left: 3rem;
     transform: rotate(0deg);
+  }
+
+  .form-container {
+    position: relative;
+    overflow: auto;
   }
 }

@@ -1,5 +1,5 @@
 import {createContext} from 'react';
 
-const languagesContext = createContext();
+const sortContext = createContext();
 
-export default languagesContext;
+export default sortContext;
