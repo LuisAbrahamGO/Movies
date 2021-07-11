@@ -11,12 +11,29 @@
   z-index: 2;
 }
 
+.right-cont{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 50%;
+}
+
+.right-cont button{
+  border: green solid;
+  background: transparent;
+  color: green;
+  margin: 1px;
+}
+
+.log-options button{
+  width: 100%;
+}
+
 .tools {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   color: white;
-  width: 50%;
   border-radius: 5px;
   padding: 5px;
 }
@@ -24,7 +41,7 @@
 .tools button {
   border: none;
   border-radius: 50%;
-  margin: 2px;
+  margin-right: 2px;
 }
 
 .sort-btns {
@@ -33,13 +50,47 @@
   margin: 4px;
 }
 
-.sort-btns h6 {
-  margin: 2px;
+.sort-btns p{
+  margin: 0;
 }
 
 .footer-container {
   width: 100%;
   z-index: 2;
+}
+
+.form-container{
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.container-r{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: 50%;
+  height: 70%;
+}
+
+.container-r form{
+  width: 75%;
+}
+
+.icon{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 50%;
+  height: fit-content;
+  font-weight: 900;
+}
+
+.icon i{
+  margin-top: 1rem;
+  transform: rotate(90deg);
 }
 
 .footer {
@@ -166,7 +217,7 @@
 @media (max-width: 700px) {
   .info-box {
     display: grid;
-    margin: 4rem auto;
+    margin: 5rem auto;
     grid-gap: 20px;
     min-width: 50%;
   }
@@ -192,5 +243,23 @@
 
   .lan-btn {
     display: flex;
+  }
+
+  .sort-btns p{
+    font-size: x-small;
+  }
+
+  .log-options button{
+    font-size: x-small;
+  }
+
+  .container-r{
+    display: grid;
+  }
+
+  .icon i{
+    margin-top: 0;
+    margin-left: 3rem;
+    transform: rotate(0deg);
   }
 }

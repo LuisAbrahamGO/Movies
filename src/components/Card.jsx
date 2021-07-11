@@ -1,13 +1,10 @@
-import { useContext, useEffect, Fragment, useRef } from "react";
-import languagesContext from "../context/languages/laguagesContext";
+import { useEffect, Fragment, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const Card = ({ movie }) => {
   //const [img, setImg] = useState();
   let defaultImg = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
   const img = useRef();
-  const context = useContext(languagesContext);
-  const { language } = context;
 
   const handleOnLoad = () => {
     let key = movie.poster_path;

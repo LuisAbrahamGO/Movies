@@ -3,9 +3,11 @@ import languagesContext from "../context/languages/laguagesContext";
 import sortContext from "../context/sort/sortContext";
 import Card from "./Card";
 import axios from "axios";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Box = () => {
   let [state, setState] = useState([]);
+  let [page, setPage] = useState({});
 
   const contextLan = useContext(languagesContext);
   const { language } = contextLan;
@@ -32,11 +34,9 @@ const Box = () => {
   useEffect(() => {
     let url = "";
     if (language) {
-      url =
-        "https://api.themoviedb.org/3/movie/popular?api_key=b3a99e49d4ea019e4e8f3a928062f42b&language=en-US&page=1";
+      url = `https://api.themoviedb.org/3/movie/popular?api_key=b3a99e49d4ea019e4e8f3a928062f42b&language=en-US&page=1`;
     } else {
-      url =
-        "https://api.themoviedb.org/3/movie/popular?api_key=b3a99e49d4ea019e4e8f3a928062f42b&language=es-ES&page=1";
+      url = `https://api.themoviedb.org/3/movie/popular?api_key=b3a99e49d4ea019e4e8f3a928062f42b&language=es-ES&page=1`;
     }
 
     axios

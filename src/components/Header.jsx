@@ -34,28 +34,35 @@ const Header = () => {
               <i className="fas fa-ticket-alt"></i>Movies
             </h1>
           </Link>
-          <div className="tools">
-            <div className="sort-btns">
-            <h6>{language ? "Sort by popularity" : "Ordernar por popularidad"}</h6>
-              <button onClick={handleOnClickHig}>
-                <i className="fas fa-arrow-circle-up"></i>
-              </button>
-              <button onClick={handleOnClickLow}>
-                <i className="fas fa-arrow-circle-down"></i>
-              </button>
+          <div className="right-cont">
+            <div className="tools">
+              <div className="sort-btns">
+                <p>
+                  {language ? "Sort by popularity" : "Ordernar por pop"}
+                </p>
+                <button onClick={handleOnClickHig}>
+                  <i className="fas fa-arrow-circle-up"></i>
+                </button>
+                <button onClick={handleOnClickLow}>
+                  <i className="fas fa-arrow-circle-down"></i>
+                </button>
+              </div>
+              <div className="lan-btn">
+                <span>Es</span>
+                <button onClick={handleOnclickLan}>
+                  <i
+                    className={
+                      language ? "fas fa-toggle-on" : "fas fa-toggle-off"
+                    }
+                  ></i>
+                </button>
+                <span>En</span>
+              </div>
             </div>
-            <div className="lan-btn">
-              <span>Es</span>
-              <button onClick={handleOnclickLan}>
-                <i
-                  className={
-                    language ? "fas fa-toggle-on" : "fas fa-toggle-off"
-                  }
-                ></i>
-              </button>
-              <span>En</span>
+            <div className="log-options">
+             <Link to="/register" > <button>{language ? "Sign-up" : "Registrarse"}</button></Link>
+              <Link to="/signin"><button>{language ? "Sign-in" : "Entrar"}</button></Link>
             </div>
-            <div className="language"></div>
           </div>
         </div>
       </nav>
