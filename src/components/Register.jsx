@@ -1,13 +1,14 @@
 import firebase from "../config/Firebase";
 import "firebase/auth";
 import { useState } from "react";
+import { useHistory } from "react-router";
 
 const Register = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [conf, setConf] = useState();
   const [error, setError] = useState();
-
+  let history = useHistory();
 
   const handleOnchangeEmail = (e) => {
     setEmail(e.target.value);
@@ -31,7 +32,12 @@ const Register = () => {
           firebase
             .auth()
             .createUserWithEmailAndPassword(email, password)
-            .then((res) => alert("successful sign up"))
+            .then((res) => {
+              alert("successful sign up")
+              setTimeout(() => {
+                history.push("/signin");
+              }, 1000);
+            })
             .catch((error) => setError(error.message));
         } else {
           setError("the passwords doesn't match");
@@ -46,7 +52,6 @@ const Register = () => {
     setTimeout(() => {
       setError(null);
     }, 3000);
-
   };
 
   return (
@@ -57,46 +62,48 @@ const Register = () => {
           <h4>Movies</h4>
           <i className="fas fa-ticket-alt fa-10x"></i>
         </div>
-        <form onSubmit={handleOnSubmit}>
-          <div className="form-group">
-            <label htmlFor="emailId">Email address</label>
-            <input
-              type="email"
-              className="form-control"
-              id="emailId"
-              aria-describedby="emailHelp"
-              placeholder="Enter email"
-              onChange={handleOnchangeEmail}
-            />
-            <small id="emailHelp" className="form-text text-muted">
-              We'll never share your email with anyone else.
-            </small>
-          </div>
-          <div className="form-group">
-            <label htmlFor="passId">Password</label>
-            <input
-              type="password"
-              id="passId"
-              className="form-control"
-              placeholder="Password"
-              onChange={handleOnchangePass}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="passConfId">Confirm Password</label>
-            <input
-              type="password"
-              id="passConfId"
-              className="form-control"
-              placeholder="Confirm Password"
-              onChange={handleOnchangeConf}
-            />
-          </div>
-          {error && <div className="error">{error}</div>}
-          <button type="submit" className="btn btn-success">
-            Submit
-          </button>
-        </form>
+        <div className="cont-r">
+          <form onSubmit={handleOnSubmit}>
+            <div className="form-group">
+              <label htmlFor="emailId">Email address</label>
+              <input
+                type="email"
+                className="form-control"
+                id="emailId"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
+                onChange={handleOnchangeEmail}
+              />
+              <small id="emailHelp" className="form-text text-muted">
+                We'll never share your email with anyone else.
+              </small>
+            </div>
+            <div className="form-group">
+              <label htmlFor="passId">Password</label>
+              <input
+                type="password"
+                id="passId"
+                className="form-control"
+                placeholder="Password"
+                onChange={handleOnchangePass}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="passConfId">Confirm Password</label>
+              <input
+                type="password"
+                id="passConfId"
+                className="form-control"
+                placeholder="Confirm Password"
+                onChange={handleOnchangeConf}
+              />
+            </div>
+            {error && <div className="error">{error}</div>}
+            <button type="submit" className="btn btn-success">
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

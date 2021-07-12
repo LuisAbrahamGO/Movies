@@ -1,13 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, Suspense } from "react";
 import languagesContext from "../context/languages/laguagesContext";
 import sortContext from "../context/sort/sortContext";
 import Card from "./Card";
 import axios from "axios";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 const Box = () => {
   let [state, setState] = useState([]);
-  let [page, setPage] = useState({});
 
   const contextLan = useContext(languagesContext);
   const { language } = contextLan;
@@ -60,9 +58,20 @@ const Box = () => {
   return (
     <div className="box-container">
       <div className="container">
-        {state.map((movie, index) => (
-          <Card key={index} movie={movie}></Card>
-        ))}
+        <Suspense
+          fallback={
+            <div className="loading">
+              <i className="fas fa-ticket-alt fa-10x"></i>
+              <h1 className="loading">
+                {language ? "Loading..." : "Cargando..."}
+              </h1>
+            </div>
+          }
+        >
+          {state.map((movie, index) => (
+            <Card key={movie.poster_path} movie={movie}></Card>
+          ))}
+        </Suspense>
       </div>
     </div>
   );

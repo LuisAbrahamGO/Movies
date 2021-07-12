@@ -3,6 +3,8 @@ import { Link, useHistory } from "react-router-dom";
 import sortContext from "../context/sort/sortContext";
 import languagesContext from "../context/languages/laguagesContext";
 import userContext from "../context/user/userContext";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 const Header = () => {
   const nav = useRef();
@@ -33,23 +35,25 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    setTimeout(() => {
-      logoutUser();
-      history.push('/signin')
-    }, 1000);
-    
+
+    firebase.auth().signOut().then(() => {
+      setTimeout(() => {
+        logoutUser();
+        history.push('/signin')
+      }, 1000);
+    }).catch((error) => {
+      console.log(error);
+    });
+
   }
 
   useEffect(() => {
   }, [user])
 
   const handleBarsClick = () => {
-    console.log(nav);
     nav.current.classList.toggle("points-hide");
     nav.current.classList.toggle("points");
   };
-
-
 
   return (
     <div className="header">

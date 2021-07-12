@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { useHistory } from "react-router";
-import firebase from "../config/Firebase";
+import firebase from "firebase/app";
+import "firebase/auth";
 import userContext from "../context/user/userContext";
 
 const Register = () => {
@@ -13,18 +14,20 @@ const Register = () => {
   const { loginUser } = contextUser;
 
   const handleOnchangeEmail = (e) => {
-    console.log(e.target.value);
     setEmail(e.target.value);
   };
   const handleOnchangePass = (e) => {
-    console.log(e.target.value);
     setPassword(e.target.value);
+  };
+
+  const handleGoogle = () => {
+    let provider = new firebase.auth.GoogleAuthProvider();
+
+    googleSignInPopup(provider);
   };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log(email);
-    console.log(password);
 
     firebase
       .auth()
@@ -33,10 +36,40 @@ const Register = () => {
         setTimeout(() => {
           loginUser(res.user.email);
           history.push("/");
-        }, 2000);
+        }, 1000);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setError(error.code);
+
+        setTimeout(() => {
+          setError(null);
+        }, 3000);
+      });
   };
+
+  function googleSignInPopup(provider) {
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        /** @type {firebase.auth.OAuthCredential} */
+
+        let user = result.user;
+        setTimeout(() => {
+          loginUser(user.email);
+          history.push("/");
+        }, 1000);
+      })
+      .catch((error) => {
+        let errorCode = error.code;
+
+        setError(errorCode);
+
+        setTimeout(() => {
+          setError(null);
+        }, 3000);
+      });
+  }
 
   return (
     <div className="form-container">
@@ -46,32 +79,39 @@ const Register = () => {
           <h4>Movies</h4>
           <i className="fas fa-ticket-alt fa-10x"></i>
         </div>
-        <form onSubmit={handleOnSubmit}>
-          <div className="form-group">
-            <label htmlFor="emailId">Email address</label>
-            <input
-              type="email"
-              className="form-control"
-              id="emailId"
-              aria-describedby="emailHelp"
-              placeholder="Enter email"
-              onChange={handleOnchangeEmail}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="passId">Password</label>
-            <input
-              type="password"
-              id="passId"
-              className="form-control"
-              placeholder="Password"
-              onChange={handleOnchangePass}
-            />
-          </div>
-          <button type="submit" className="btn btn-success">
-            Enter
-          </button>
-        </form>
+        <div className="cont-r">
+          <form onSubmit={handleOnSubmit}>
+            <div className="form-group">
+              <label htmlFor="emailId">Email address</label>
+              <input
+                type="email"
+                className="form-control"
+                id="emailId"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
+                onChange={handleOnchangeEmail}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="passId">Password</label>
+              <input
+                type="password"
+                id="passId"
+                className="form-control"
+                placeholder="Password"
+                onChange={handleOnchangePass}
+              />
+            </div>
+            <button type="submit" className="btn btn-success">
+              Enter
+            </button>
+            <button onClick={handleGoogle} className="google-btn">
+              <i className="fab fa-google"></i>
+              Sign-in whit Google
+            </button>
+          </form>
+          {error && <div className="error">{error}</div>}
+        </div>
       </div>
     </div>
   );
