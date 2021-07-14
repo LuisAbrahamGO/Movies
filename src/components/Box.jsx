@@ -86,7 +86,14 @@ const Box = () => {
         dataLength={state.length}
         next={handleSeeMore}
         hasMore={pages !== 6 ? true : false}
-        loader={<h4>Loading...</h4>}
+        loader={
+          <div className="loading">
+            <i className="fas fa-ticket-alt"></i>
+            <h1 className="loading">
+              {language ? "Loading..." : "Cargando..."}
+            </h1>
+          </div>
+        }
         className="container"
       >
         {state.map((movie, index) => (
