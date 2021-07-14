@@ -3,9 +3,11 @@ import languagesContext from "../context/languages/laguagesContext";
 import sortContext from "../context/sort/sortContext";
 import Card from "./Card";
 import axios from "axios";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Box = () => {
   let [state, setState] = useState([]);
+  let [pages, setPages] = useState(1);
 
   const contextLan = useContext(languagesContext);
   const { language } = contextLan;
@@ -13,21 +15,40 @@ const Box = () => {
   const contextSort = useContext(sortContext);
   const { sort } = contextSort;
 
+  const handleSeeMore = () => {
+    let url = "";
+    setPages(++pages);
+    if (language) {
+      url = `https://api.themoviedb.org/3/movie/popular?api_key=b3a99e49d4ea019e4e8f3a928062f42b&language=en-US&page=${pages}`;
+    } else {
+      url = `https://api.themoviedb.org/3/movie/popular?api_key=b3a99e49d4ea019e4e8f3a928062f42b&language=es-ES&page=${pages}`;
+    }
+
+    axios
+      .get(url)
+      .then((res) => {
+        setState(state.concat(res.data.results));
+      })
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {}, [state]);
+
   useEffect(() => {
     if (sort === "low") {
       setState(
-        (state = state.sort((a, b) => {
+        state.sort((a, b) => {
           return b.popularity - a.popularity;
-        }))
+        })
       );
     } else {
       setState(
-        (state = state.sort((a, b) => {
+        state.sort((a, b) => {
           return a.popularity - b.popularity;
-        }))
+        })
       );
     }
-  }, [sort, state]);
+  }, [sort]);
 
   useEffect(() => {
     let url = "";
@@ -43,6 +64,8 @@ const Box = () => {
         setState(res.data.results);
       })
       .catch((error) => console.log(error));
+
+    setPages(1);
   }, [language]);
 
   useEffect(() => {
@@ -55,24 +78,21 @@ const Box = () => {
     });
   }, [state]);
 
+  console.log(pages);
+
   return (
     <div className="box-container">
-      <div className="container">
-        <Suspense
-          fallback={
-            <div className="loading">
-              <i className="fas fa-ticket-alt fa-10x"></i>
-              <h1 className="loading">
-                {language ? "Loading..." : "Cargando..."}
-              </h1>
-            </div>
-          }
-        >
-          {state.map((movie, index) => (
-            <Card key={movie.poster_path} movie={movie}></Card>
-          ))}
-        </Suspense>
-      </div>
+      <InfiniteScroll
+        dataLength={state.length}
+        next={handleSeeMore}
+        hasMore={pages !== 6 ? true : false}
+        loader={<h4>Loading...</h4>}
+        className="container"
+      >
+        {state.map((movie, index) => (
+          <Card key={movie.poster_path} movie={movie}></Card>
+        ))}
+      </InfiniteScroll>
     </div>
   );
 };

@@ -20,17 +20,17 @@ const Header = () => {
 
 
   const handleOnClickHig = (e) => {
-    e.preventDefault();
+    
     changeSortHig();
   };
 
   const handleOnClickLow = (e) => {
-    e.preventDefault();
+    
     changeSortLow();
   };
 
   const handleOnclickLan = (e) => {
-    e.preventDefault();
+   
     changeLanguage();
   };
 
