@@ -1,1 +1,1 @@
-Reto de React.js consumiendo la api de TMDB
+APP para ver las películas del momento
