@@ -15,7 +15,7 @@ function App() {
       <SortState>
       <LanguagesState>
         <div className="App">
-          <Router>
+          <Router basename={process.env.PUBLIC_URL}>
             <Header></Header>
             <Switch>
               <Route path="/" exact component={Box}></Route>
