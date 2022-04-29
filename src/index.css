@@ -1,3 +1,9 @@
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
   display: flex;
   flex-direction: column;
@@ -239,7 +245,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 4%;
-  width: 100vw;
+  width: 95vw;
   padding: 2rem;
   display: flex;
   justify-content: flex-start;

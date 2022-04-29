@@ -2,6 +2,7 @@ import { useState, useEffect, useContext, Fragment } from "react";
 import languagesContext from "../context/languages/laguagesContext";
 import YouTubePlayer from "react-player/youtube";
 import axios from "axios";
+import 'animate.css';
 
 const Info = (props) => {
   const { movie } = props.match.params;
@@ -74,7 +75,7 @@ const Info = (props) => {
     <div className="info-container">
       {state !== undefined ? (
         <Fragment>
-          <div className="info-box">
+          <div className="info-box animate__animated animate__fadeInLeft">
             <div className="info-image">
               <img src={image} alt="..." />
             </div>
